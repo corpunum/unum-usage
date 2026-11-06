@@ -1,0 +1,20 @@
+[package]
+name = "unum-usage"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.89"
+description = "Tiny local-only usage counters (JSONL, no args, no content) for the Unum engines"
+license = "Apache-2.0"
+repository = "https://github.com/corpunum/unum-usage"
+readme = "README.md"
+
+[lib]
+name = "usage"
+path = "src/lib.rs"
+
+[dependencies]
+serde_json = "1"
+
+[[example]]
+name = "bench"
+path = "examples/bench.rs"
