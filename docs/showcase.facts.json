@@ -1,0 +1,57 @@
+{
+  "name": "unum-usage",
+  "repo": "corpunum/unum-usage",
+  "oneLiner": "Tiny local-only usage counters for Rust tools and daemons: JSON lines on disk, counts only, no network.",
+  "license": "Apache-2.0",
+  "version": "0.1.0",
+  "updated": "2026-11-12",
+  "quickstart": {
+    "lang": "toml",
+    "code": "# Cargo.toml (not on crates.io yet: pin a git revision)\n[dependencies]\nunum-usage = { git = \"https://github.com/corpunum/unum-usage\", rev = \"8e521e179066a5f3ae9b7ae3a33ecb1797a9c962\" }"
+  },
+  "measured": [
+    {
+      "metric": "count()",
+      "value": "476 ns per call",
+      "baseline": "19 ns to read the clock (Instant::now)",
+      "sample": "200,000 calls in one thread, median of 3 runs (468 to 478 ns), release build, machine not idle",
+      "method": "cargo run --release --example bench",
+      "date": "2026-11-12",
+      "version": "0.1.0"
+    },
+    {
+      "metric": "span()",
+      "value": "561 ns per call",
+      "baseline": "19 ns to read the clock (Instant::now)",
+      "sample": "200,000 calls in one thread, median of 3 runs (556 to 576 ns), release build, machine not idle",
+      "method": "cargo run --release --example bench",
+      "date": "2026-11-12",
+      "version": "0.1.0"
+    }
+  ],
+  "constants": [
+    { "value": "8 KB", "what": "flush threshold of the in-memory buffer" },
+    { "value": "1 s", "what": "flush interval" },
+    { "value": "20 MB", "what": "file size at which the log rolls over" },
+    { "value": "256 KB", "what": "upper bound of the in-memory buffer per engine" }
+  ],
+  "links": [
+    { "label": "Source of the whole crate (one file)", "url": "src/lib.rs" },
+    { "label": "The micro-bench", "url": "examples/bench.rs" },
+    { "label": "Handover and open work", "url": "HANDOVER.md" },
+    { "label": "corpunum.com", "url": "https://corpunum.com" }
+  ],
+  "hero": {
+    "template": "race-bars",
+    "bind": {
+      "rows": { "from": "measured", "label": "metric", "a": "value", "b": "baseline" },
+      "aName": "One counter call",
+      "bName": "Reading the clock",
+      "unit": "ns",
+      "note": { "text": "Measured {updated}" }
+    },
+    "alt": "Two bars per call: recording one usage counter takes 476 ns for count() and 561 ns for span(), next to the 19 ns it takes just to read the clock",
+    "height": 220,
+    "seconds": 8
+  }
+}
